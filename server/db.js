@@ -23,6 +23,4 @@ function queryDB(sql, arrayData) {
     });
 }
 
-queryDB('SELECT * FROM "Product"', [])
-.then(result => console.log(result.rows))
-.catch(err => console.log(err.message));
+module.exports = queryDB;
