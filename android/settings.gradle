@@ -1,0 +1,3 @@
+rootProject.name = 'FlatList2207'
+
+include ':app'
