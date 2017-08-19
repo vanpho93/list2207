@@ -1,34 +1,37 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, StatusBar, FlatList, Image } from 'react-native';
-import getAllProduct from '../api/getAllProducts';
-import Product from './Product';
+import Singer from './Singer';
+
+import getAllSinger from '../api/getAllSingers';
+
 StatusBar.setHidden(true);
 
 export default class ListSinger extends Component {
     constructor(props) {
       super(props);
       this.state = {
-        arrProducts: []
+        arrSingers: []
       }
     }
   
     componentDidMount() {
-      getAllProduct()
-      .then(products => this.setState({ arrProducts: products }));
+      getAllSinger()
+      .then(singers => this.setState({ arrSingers: singers }));
     }
   
     render() {
       return (
         <View style={styles.container}>
             <FlatList 
-              data={this.state.arrProducts}
-              renderItem={({ item }) => <Product item={item} />}
+              data={this.state.arrSingers}
+              renderItem={({ item }) => <Singer item={item} />}
               keyExtractor={item => item.id}
             />
         </View>
       );
     }
   }
+
   const styles = StyleSheet.create({
     container: {
       flex: 1,
