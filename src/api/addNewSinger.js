@@ -9,7 +9,7 @@ const addNewSinger = async (name, image) => {
         body: JSON.stringify({ name, image})
     };
     const res = await fetch(url, options);
-    const resJSON = await res.json();
+    const resJSON = await res.text();
     return;    
 }
 
