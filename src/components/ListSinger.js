@@ -23,8 +23,9 @@ export default class ListSinger extends Component {
       }
     }
     componentDidMount() {
+        this.setState({ refreshing: true });
         getAllSinger()
-        .then(singers => this.setState({ arrSingers: singers }));
+        .then(singers => this.setState({ arrSingers: singers, refreshing: false }));
     }
     render() {
       return (
@@ -35,7 +36,7 @@ export default class ListSinger extends Component {
               keyExtractor={item => item.id}
               refreshControl={
                   <RefreshControl 
-                    refreshing={false}
+                    refreshing={this.state.refreshing}
                     onRefresh={() => {}}
                   />
               }

@@ -26,7 +26,9 @@ app.get('/singer/:maxCurrentId', (req, res) => {
     const { maxCurrentId } = req.params;
     const selectSql = 'SELECT * FROM "Singer" WHERE id > $1 ORDER BY id ASC LIMIT 3';
     queryDB(selectSql, [maxCurrentId])
-    .then(result => res.send(result.rows))
+    .then(result => {
+        setTimeout(() => res.send(result.rows), 1000)
+    })
     .catch(err => res.send({ errMessage: err.message }));
 });
 
