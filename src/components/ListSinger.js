@@ -5,11 +5,13 @@ import {
     StatusBar, 
     FlatList, 
     Image, 
-    RefreshControl 
+    RefreshControl,
+    TouchableOpacity 
 } from 'react-native';
 import Singer from './Singer';
 
 import getSingersByMaxId from '../api/getAllSingers';
+import addNewSinger from '../api/addNewSinger';
 
 StatusBar.setHidden(true);
 
@@ -19,8 +21,15 @@ export default class ListSinger extends Component {
       this.state = {
         arrSingers: [],
         refreshing: false
-      }
+      };
+      this.onAddNewSinger = this.onAddNewSinger.bind(this)
     }
+
+    onAddNewSinger() {
+      addNewSinger('A', 'B')
+      .then(() => console.log('Post thanh cong'))
+      .catch(() => console.log('Post that bai'));
+    } 
 
     componentDidMount() {
         this.setState({ refreshing: true });
@@ -43,6 +52,9 @@ export default class ListSinger extends Component {
     render() {
       return (
         <View style={styles.container}>
+            <TouchableOpacity onPress={this.onAddNewSinger}>
+                <Text>Post</Text>
+            </TouchableOpacity>
             <FlatList 
               data={this.state.arrSingers}
               renderItem={({ item }) => <Singer item={item} />}
