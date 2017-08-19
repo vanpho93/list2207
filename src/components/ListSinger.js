@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import Singer from './Singer';
 
-import getAllSinger from '../api/getAllSingers';
+import getSingersByMaxId from '../api/getAllSingers';
 
 StatusBar.setHidden(true);
 
@@ -18,15 +18,28 @@ export default class ListSinger extends Component {
       super(props);
       this.state = {
         arrSingers: [],
-        refreshing: false,
-        maxCurrentId: 0
+        refreshing: false
       }
     }
+
     componentDidMount() {
         this.setState({ refreshing: true });
-        getAllSinger()
+        getSingersByMaxId(0)
         .then(singers => this.setState({ arrSingers: singers, refreshing: false }));
     }
+
+    _onRefesh() {
+        this.setState({ refreshing: true });
+        const arrId = this.state.arrSingers.map(singer => singer.id);
+        const maxId = Math.max(...arrId); 
+        // const maxId = Math.max(1, 2, 3); 
+        getSingersByMaxId(maxId)
+        .then(singers => this.setState((prevState) => ({ 
+            arrSingers: singers.concat(prevState.arrSingers), 
+            refreshing: false 
+        })));
+    }
+
     render() {
       return (
         <View style={styles.container}>
@@ -37,7 +50,7 @@ export default class ListSinger extends Component {
               refreshControl={
                   <RefreshControl 
                     refreshing={this.state.refreshing}
-                    onRefresh={() => {}}
+                    onRefresh={this._onRefesh.bind(this)}
                   />
               }
             />
