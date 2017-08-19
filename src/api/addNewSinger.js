@@ -1,5 +1,5 @@
 const addNewSinger = async (name, image) => {
-    const url = 'http://localhost:3000/singer';
+    const url = 'https://rn2207.herokuapp.com/singer';
     const options = {
         method: 'POST',
         headers: {

@@ -1,5 +1,5 @@
 const getSingersByMaxId = async (maxId) => {
-    const res = await fetch('http:localhost:3000/singer/' + maxId);
+    const res = await fetch('https://rn2207.herokuapp.com/singer/' + maxId);
     const resJSON = await res.json();
     return resJSON;
 }

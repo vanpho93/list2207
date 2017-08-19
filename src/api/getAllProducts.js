@@ -1,5 +1,5 @@
 const getAllProduct = async () => {
-    const res = await fetch('http:localhost:3000/sanpham');
+    const res = await fetch('https://rn2207.herokuapp.com/sanpham');
     const resJSON = await res.json();
     return resJSON;
 }
