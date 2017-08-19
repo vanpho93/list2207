@@ -1,4 +1,6 @@
 const express = require('express');
+const jsonParser = require('body-parser').json();
+
 const queryDB = require('./db');
 
 const app = express();
@@ -8,7 +10,7 @@ app.get('/', (req, res) => res.send({ message: 'OK' }));
 // localhost:3000/cong/3/4
 app.get('/cong/:soA/:soB', (req, res) => {
     const { soA, soB } = req.params;
-    res.send({ ketqua: +soA + +soB })
+    res.send({ ketqua: +soA + +soB });
 });
 
 app.get('/sanpham/:id', (req, res) => {
@@ -32,6 +34,18 @@ app.get('/singer/:maxCurrentId', (req, res) => {
     .catch(err => res.send({ errMessage: err.message }));
 });
 
+
+app.post('/singer', jsonParser, (req, res) => {
+    const { name, image } = req.body;
+    console.log(req.body);
+    res.send('Da nhan ' + name + ' ' + image);
+});
 // localhost:3000/sanpham/2
 
 app.listen(3000, () => console.log('Server is running'));
+
+
+// app.get('/singer')
+// app.post('/singer')
+// app.put('/singer')
+// app.delete('/singer')
